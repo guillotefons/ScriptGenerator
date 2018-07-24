@@ -1,0 +1,25 @@
+#! /bin/bash
+
+#################################################################################
+#
+#   Script Lineas Base de Seguridad v1.0
+#   Sistema Operativo: {{ sistema_operativo }}
+#   Generado el {% now "j F Y - H:i" %}
+#
+#################################################################################
+
+{
+echo "Iniciando..."
+echo "Hostname: $(hostname)"
+echo "Fecha: $(date +%Y-%m-%d)"
+echo ""
+echo ""
+echo "---------------------------------------------------------------------------"
+{% for linea in data %}
+echo ">> Categoría de configuración: {{ linea.capitulo }}"
+{% for subcapitulo in linea.subcapitulos %}
+echo "* Configuración auditada: {{ subcapitulo.nombre }}"
+{{ subcapitulo.comandos|safe }}
+{% endfor %}
+{% endfor %}
+} > "{{ sistema_operativo }}"_script_out_$(date +%Y-%m-%d).txt

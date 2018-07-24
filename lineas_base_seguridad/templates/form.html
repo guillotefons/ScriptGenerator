@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<h3>Bienvenido,</h3>
+<p align="justify">Le informamos que con este formulario es posible descargar el script para verficar las L&iacute;neas de Seguridad en distribuciones de Linux.</p>
+<p align="justify">Por favor, seleccione la distribución de acuerdo a su necesidad y a continuaci&oacute;n, accione el bot&oacute;n "Descargar".</p>
+<form method="POST" action="{% url 'app:download' %}">
+	{% csrf_token %}
+	<div class="row">
+		<div class="col-md-3">
+			<label for="so">Distribución Linux:</label>	
+			<select class="form-control" id="so" name="so">
+			{% if object_list %}
+				{% for so in object_list %}
+					<option value='{{ so.id }}'>{{ so.nombre }}</option>
+				{% endfor %}
+			{% endif %}
+			</select><br />
+			<button class="btn btn-primary"><span class="glyphicon glyphicon-download-alt"></span> Descargar</button>
+		</div>
+		<div class="col-md-2">
+		</div>
+	</div>
+	
+	
+</form>
+{% endblock %}

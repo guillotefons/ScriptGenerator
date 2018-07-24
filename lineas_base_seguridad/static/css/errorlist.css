@@ -1,0 +1,5 @@
+.errorlist li{
+	color: red;
+	list-style: none;
+	/*float: left;*/
+}

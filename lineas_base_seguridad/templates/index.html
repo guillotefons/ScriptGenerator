@@ -1,0 +1,54 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>L&iacute;neas Base de Seguridad</title>
+		
+		<script type="text/javascript" src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'css/bootstrap-3.3.7/css/bootstrap.min.css' %}">
+		<link rel="stylesheet" href="{% static 'css/bootstrap-3.3.7/css/bootstrap-theme.min.css' %}">
+		<script type="text/javascript" src="{% static 'css/bootstrap-3.3.7/js/bootstrap.min.js' %}"></script>
+		<link rel="stylesheet" href="{% static 'css/errorlist.css' %}">
+	</head>
+	<body>
+		{% block nav %}
+	<nav class="navbar navbar-default">
+	  	<div class="container-fluid">
+	    	<div class="navbar-header">
+	      		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>
+	        	<span class="icon-bar"></span>                        
+	      	</button>
+	      	<a class="navbar-brand" href="{% url 'app:index' %}">L&iacute;neas Base de Seguridad</a>
+	    </div>
+	    <div class="collapse navbar-collapse" id="myNavbar">
+	      	<ul class="nav navbar-nav">
+	        	{% if user.is_authenticated %}
+		        	{% if user.is_active and user.is_staff %}
+					<li><a href="{% url 'admin:index' %}">VER LA ADMINISTRACI&Oacute;N</a></li>
+	                {% endif %}
+	        	{% endif %}
+	      	</ul>
+	      	<ul class="nav navbar-nav navbar-right">
+	      		{% if user.is_authenticated %}
+				<li>
+	          		<a class="dropdown-toggle" data-toggle="dropdown" href="#">Hola, {% firstof user.get_short_name user.get_username %}</a>
+	        	</li>
+	        	{% endif %}
+	      	</ul>
+    	</div>
+	  </div>
+	</nav>
+	{% endblock %}
+		
+		<div class="container">
+		{% block content %}
+		Bloque de contenido
+		{% endblock %}
+		</div>
+	</body>
+</html>
